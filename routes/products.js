@@ -11,5 +11,7 @@ router.get("/ids", products.getMultipleProductsByIds); // Notice that :ids has b
 router.get("/tags", products.getTagProduct);
 router.get("/reviews", products.getAllReviews);
 router.get("/type/:type", products.getTypeOfProduct);
+router.get("/filtered", products.getFilteredProducts);
+router.post("/filtered", products.getFilteredProducts);
 
 module.exports = router;

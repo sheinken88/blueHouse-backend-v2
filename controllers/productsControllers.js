@@ -3,7 +3,9 @@ const express = require("express");
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await WooCommerce.get("products");
+    const allProducts = await WooCommerce.get("products", {
+      per_page: 50,
+    });
     res.status(200).send(allProducts.data);
   } catch (err) {
     console.log("Error");
@@ -77,6 +79,16 @@ const getTypeOfProduct = async (req, res) => {
   }
 };
 
+const getFilteredProducts = async (req, res) => {
+  console.log("SOY LO QUE RECIBE EL BACK DESDE PD", req.body);
+  try {
+    const filteredProduct = await WooCommerce.get(`products`, req.body);
+    res.status(200).send(filteredProduct.data);
+  } catch (err) {
+    console.log(" esto es un error .. Error");
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductsByCategory,
@@ -85,5 +97,9 @@ module.exports = {
   getTagProduct,
   getAllReviews,
   getTypeOfProduct,
+
+  getFilteredProducts,
+
   getMultipleProductsByIds,
+
 };
