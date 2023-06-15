@@ -1,5 +1,4 @@
 const WooCommerce = require("../config/index");
-//const express = require("express");
 
 const getAllCategories = async (req, res) => {
   try {
@@ -11,9 +10,11 @@ const getAllCategories = async (req, res) => {
 };
 
 const getSubCategories = async (req, res) => {
-  let parentId = req.query.parent
+  let parentId = req.query.parent;
   try {
-    const SubCategories = await WooCommerce.get(`products/categories?parent=${parentId}`);
+    const SubCategories = await WooCommerce.get(
+      `products/categories?parent=${parentId}`
+    );
     res.status(200).send(SubCategories.data);
   } catch (err) {
     console.log("Error");
