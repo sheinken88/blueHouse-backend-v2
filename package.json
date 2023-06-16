@@ -11,5 +11,12 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "author": "blueHouseBackend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "engines": {
+    "node": "16.20.0",
+    "npm": "8.19.4"
   }
 }

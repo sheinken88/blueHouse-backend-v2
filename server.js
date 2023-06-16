@@ -22,6 +22,6 @@ app.use(morgan("tiny"));
 
 app.use("/api", routes);
 
-app.listen(8080, () => {
-  console.log(`Server is listening at port 8080`);
+const listener = app.listen(process.env.PORT || 8080, () => {
+  console.log("App listening on port " + listener.address().port);
 });
