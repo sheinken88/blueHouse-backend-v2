@@ -11,7 +11,7 @@ const app = express();
 //ESTAS SON LAS MIDDLEWARE
 app.use(
   cors({
-    origin: "https://blue-house-frontend.vercel.app/",
+    origin: "https://blue-house-frontend-ate9i6mk4-sheinken88.vercel.app",
     methods: ["GET", "POST", "DELETE", "OPTIONS"],
     credentials: true,
   })
