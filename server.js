@@ -12,6 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://blue-house-frontend.vercel.app/",
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
