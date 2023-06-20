@@ -14,10 +14,11 @@ const getAllProducts = async (req, res) => {
 
 const getProductsByCategory = async (req, res) => {
   try {
-    const allProducts = await WooCommerce.get(
+    const productsByCategory = await WooCommerce.get(
       `products?category=${req.params.id}`
     );
-    res.status(200).send(allProducts.data);
+
+    res.status(200).send(productsByCategory.data);
   } catch (err) {
     console.log("Error");
   }
@@ -80,9 +81,10 @@ const getTypeOfProduct = async (req, res) => {
 };
 
 const getFilteredProducts = async (req, res) => {
-  console.log("SOY LO QUE RECIBE EL BACK DESDE PD", req.body);
+  const request = req.params.request;
+  console.log("SOY REQUIRED", request);
   try {
-    const filteredProduct = await WooCommerce.get(`products`, req.body);
+    const filteredProduct = await WooCommerce.get(`products?${request}`);
     res.status(200).send(filteredProduct.data);
   } catch (err) {
     console.log(" esto es un error .. Error");
@@ -101,5 +103,4 @@ module.exports = {
   getFilteredProducts,
 
   getMultipleProductsByIds,
-
 };
