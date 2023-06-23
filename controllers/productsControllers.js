@@ -3,9 +3,8 @@ const express = require("express");
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await WooCommerce.get("products", {
-      per_page: 50,
-    });
+    const allProducts = await WooCommerce.get("products");
+
     res.status(200).send(allProducts.data);
   } catch (err) {
     console.log("Error");
@@ -14,10 +13,11 @@ const getAllProducts = async (req, res) => {
 
 const getProductsByCategory = async (req, res) => {
   try {
-    const allProducts = await WooCommerce.get(
+    const productsByCategory = await WooCommerce.get(
       `products?category=${req.params.id}`
     );
-    res.status(200).send(allProducts.data);
+
+    res.status(200).send(productsByCategory.data);
   } catch (err) {
     console.log("Error");
   }
@@ -26,7 +26,7 @@ const getProductsByCategory = async (req, res) => {
 const getProductsByTag = async (req, res) => {
   try {
     const allProducts = await WooCommerce.get(`products?tag=${req.params.id}`);
-    res.status(200).send(allProducts.data);
+    res.status(200).send(allProducts.head);
   } catch (err) {
     console.log("Error");
   }
@@ -80,12 +80,19 @@ const getTypeOfProduct = async (req, res) => {
 };
 
 const getFilteredProducts = async (req, res) => {
-  console.log("SOY LO QUE RECIBE EL BACK DESDE PD", req.body);
+  const request = req.params.request;
   try {
-    const filteredProduct = await WooCommerce.get(`products`, req.body);
-    res.status(200).send(filteredProduct.data);
+    const filteredProduct = await WooCommerce.get(`products?${request}`, {
+      page: 2,
+    });
+    const dataToSend = {
+      filteredProduct: filteredProduct.data,
+      totalPages: filteredProduct.headers["x-wp-totalpages"],
+      links: filteredProduct.headers.link,
+    };
+    res.status(200).send(dataToSend);
   } catch (err) {
-    console.log(" esto es un error .. Error");
+    console.log(" esto es un error .. Error en getFilteredProducts");
   }
 };
 
@@ -97,9 +104,6 @@ module.exports = {
   getTagProduct,
   getAllReviews,
   getTypeOfProduct,
-
   getFilteredProducts,
-
   getMultipleProductsByIds,
-
 };
